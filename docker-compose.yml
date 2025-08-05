@@ -1,0 +1,35 @@
+services:
+  app:
+    build: .
+    container_name: ci3-app
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+    networks:
+      - ci3net
+
+  db:
+    image: mysql:5.7
+    container_name: ci3-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: conectala_api
+      MYSQL_USER: ci3_user
+      MYSQL_PASSWORD: ci3_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ci3net
+
+volumes:
+  db_data:
+
+networks:
+  ci3net:
