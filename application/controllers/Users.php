@@ -3,6 +3,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 use chriskacerguis\RestServer\RestController;
 
+/**
+ * @property User_model $User_model
+ * @property CI_Form_validation $form_validation
+ * @property CI_Input $input
+ * @property CI_DB_query_builder $db
+ */
 class Users extends RestController {
     public function __construct() {
         parent::__construct();
