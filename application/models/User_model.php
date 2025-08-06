@@ -2,8 +2,16 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class User_model extends CI_Model {
-    public function get_all() {
-        return $this->db->get('users')->result_array();
+    public function findById($id) {
+        return $this->db->get_where('users', ['id' => $id])->row();
+    }
+
+    public function findAll() {
+        return $this->db->get('users')->result();
+    }
+
+    public function findByEmail($email) {
+        return $this->db->get_where('users', ['email' => $email])->row();
     }
 
     public function insert($data) {
@@ -12,10 +20,10 @@ class User_model extends CI_Model {
     }
 
     public function update($id, $data) {
-        return $this->db->where('id', $id)->update('users', $data);
+        return $this->db->update('users', $data, ['id' => $id]);
     }
 
     public function delete($id) {
-        return $this->db->where('id', $id)->delete('users');
+        return $this->db->delete('users', ['id' => $id]);
     }
 }
